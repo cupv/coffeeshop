@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS `product_db`;
+
+CREATE DATABASE IF NOT EXISTS `counter_db`;
+
+CREATE DATABASE IF NOT EXISTS `kitchen_db`;
+
+CREATE DATABASE IF NOT EXISTS `barista_db`;
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root_password_here';
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root_password_here';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
