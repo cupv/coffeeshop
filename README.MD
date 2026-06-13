@@ -1,6 +1,6 @@
 # Coffeeshop
 
-A production-ready microservices application built with **NestJS** and adherence to **Clean Architecture** (DDD/Hexagonal principles). This project is inspired by the well-known [go-coffeeshop](https://github.com/thangchung/go-coffeeshop) repository.
+A production-ready microservices application built with **NestJS** and adherence to Clean Architecture. This project is inspired by the well-known [go-coffeeshop](https://github.com/thangchung/go-coffeeshop) repository.
 
 ---
 
