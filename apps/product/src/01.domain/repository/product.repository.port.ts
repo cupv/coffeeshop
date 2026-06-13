@@ -1,12 +1,12 @@
 import { Nullable } from 'src/00.common';
 import { Product } from '../entity/product';
 
-export const PRODUCT_REPOSITORY_DI_TOKEN = Symbol(
-  'PRODUCT_REPOSITORY_DI_TOKEN',
+export const PRODUCT_REPOSITORY_TOKEN = Symbol(
+  'PRODUCT_REPOSITORY_TOKEN',
 );
 
-export const PRODUCT_REPOSITORY_DI_TOKEN_LOCAL = Symbol(
-  'PRODUCT_REPOSITORY_DI_TOKEN_LOCAL',
+export const PRODUCT_LOCAL_REPOSITORY_TOKEN = Symbol(
+  'PRODUCT_LOCAL_REPOSITORYTOKEN',
 );
 
 export interface ProductRepositoryPort {

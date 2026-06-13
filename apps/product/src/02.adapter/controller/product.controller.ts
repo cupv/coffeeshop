@@ -1,13 +1,13 @@
 import { Controller, Get, Inject, Param, ParseIntPipe } from '@nestjs/common';
 import {
-  PRODUCT_SERVICE_DI_TOKEN,
+  PRODUCT_SERVICE_TOKEN,
   type ProductServicePort,
 } from '../../01.domain';
 
 @Controller('/products')
 export class ProductController {
   constructor(
-    @Inject(PRODUCT_SERVICE_DI_TOKEN)
+    @Inject(PRODUCT_SERVICE_TOKEN)
     private readonly productService: ProductServicePort,
   ) {}
 

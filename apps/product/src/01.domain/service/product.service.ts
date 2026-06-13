@@ -1,13 +1,13 @@
 import { Inject } from '@nestjs/common';
 import {
-  PRODUCT_REPOSITORY_DI_TOKEN_LOCAL,
+  PRODUCT_LOCAL_REPOSITORY_TOKEN,
   type ProductRepositoryPort,
 } from '../repository';
 import { ProductServicePort } from './product.service.port';
 
 export class ProductService implements ProductServicePort {
   constructor(
-    @Inject(PRODUCT_REPOSITORY_DI_TOKEN_LOCAL)
+    @Inject(PRODUCT_LOCAL_REPOSITORY_TOKEN)
     private readonly productRepository: ProductRepositoryPort,
   ) {}
 

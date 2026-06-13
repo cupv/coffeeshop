@@ -1,10 +1,11 @@
 import { Provider } from '@nestjs/common';
-import { PRODUCT_SERVICE_DI_TOKEN } from './product.service.port';
 import { ProductService } from './product.service';
+
+export const PRODUCT_SERVICE_TOKEN = Symbol('PRODUCT_SERVICE_TOKEN');
 
 export const services: Provider[] = [
   {
-    provide: PRODUCT_SERVICE_DI_TOKEN,
+    provide: PRODUCT_SERVICE_TOKEN,
     useClass: ProductService,
   },
 ];
