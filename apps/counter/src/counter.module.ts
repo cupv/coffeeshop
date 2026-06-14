@@ -1,8 +1,23 @@
 import { Module } from '@nestjs/common';
+import { services } from './01.domain';
+import { adapters, entities, repositories } from './99.infrastructure';
+import { controllers } from './02.adapter';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [],
-  controllers: [],
-  providers: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root_password_here',
+      database: 'counter_db',
+      entities: [...entities],
+    }),
+    TypeOrmModule.forFeature([...entities]),
+  ],
+  controllers: [...controllers],
+  providers: [...repositories, ...services, ...adapters],
 })
 export class CounterModule {}

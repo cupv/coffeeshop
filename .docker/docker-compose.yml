@@ -15,6 +15,24 @@ services:
       - ./vol/mysql:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - coffeeshop-network
 
-volumes:
-  mysql_data:
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: coffeeshop-mq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"  
+      - "15672:15672" 
+    volumes:
+      - ./vol/rabbitmq:/var/lib/rabbitmq
+    networks:
+      - coffeeshop-network
+
+networks:
+  coffeeshop-network:
+    driver: bridge

@@ -30,6 +30,9 @@
 ```bash
 $ yarn install
 ```
+## Package
+
+- [uuidv7](https://www.npmjs.com/package/uuidv7)
 
 ## Compile and run the project
 
