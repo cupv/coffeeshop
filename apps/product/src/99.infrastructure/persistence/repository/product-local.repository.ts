@@ -1,5 +1,5 @@
 import { Nullable } from 'src/00.common';
-import { Product, ProductRepositoryPort } from '../../01.domain';
+import { Product, ProductRepositoryPort } from '../../../01.domain';
 
 export class ProductLocalRepository implements ProductRepositoryPort {
   private readonly products: Product[] = [

@@ -1,16 +1,16 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import {
   CreateOrderLineItemOptions,
-  ORDER_SERVICE_TOKEN,
-  type OrderServicePort,
+  ORDER_USECASE_TOKEN,
+  type OrderUseCasePort,
 } from '../../01.domain';
 import { type CreateOrderDto } from './counter.dto';
 
 @Controller('orders')
 export class CounterController {
   constructor(
-    @Inject(ORDER_SERVICE_TOKEN)
-    private readonly orderService: OrderServicePort,
+    @Inject(ORDER_USECASE_TOKEN)
+    private readonly orderService: OrderUseCasePort,
   ) {}
 
   @Post()

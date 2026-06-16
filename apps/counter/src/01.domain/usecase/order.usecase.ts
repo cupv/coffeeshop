@@ -3,12 +3,12 @@ import {
   ORDER_REPOSITORY_TOKEN,
   type OrderRepositoryPort,
 } from '../repository';
-import { CreateOrderOptions, OrderServicePort } from './order.service.port';
+import { CreateOrderOptions, OrderUseCasePort } from './order.usecase.port';
 import { CreateOrderCommand, CreateOrderLineItemCommand } from '../command';
 import { uuidv7 } from 'uuidv7';
 import { Order, OrderStatus } from '../entity';
 
-export class OrderService implements OrderServicePort {
+export class OrderUseCase implements OrderUseCasePort {
   constructor(
     @Inject(ORDER_REPOSITORY_TOKEN)
     private readonly orderRepository: OrderRepositoryPort,

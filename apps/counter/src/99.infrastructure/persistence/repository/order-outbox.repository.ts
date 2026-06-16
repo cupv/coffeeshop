@@ -2,16 +2,16 @@ import { Injectable } from '@nestjs/common';
 import {
   OrderOutbox,
   OrderOutboxRepositoryPort,
-} from '../../01.domain';
+} from '../../../01.domain';
 import { DataSource, Repository } from 'typeorm';
-import { OrderOutboxEntity } from './order-outbox.entity';
+import { OrderOutboxModel } from '../model/order-outbox.model';
 
 @Injectable()
 export class OrderOutboxRepository implements OrderOutboxRepositoryPort {
-  private readonly repo: Repository<OrderOutboxEntity>;
+  private readonly repo: Repository<OrderOutboxModel>;
 
   constructor(private readonly dataSource: DataSource) {
-    this.repo = this.dataSource.getRepository(OrderOutboxEntity);
+    this.repo = this.dataSource.getRepository(OrderOutboxModel);
   }
 
   async fetchPendingBatch(limit: number): Promise<OrderOutbox[]> {
@@ -28,12 +28,12 @@ export class OrderOutboxRepository implements OrderOutboxRepositoryPort {
   }
 
   async save(domainModel: OrderOutbox): Promise<OrderOutbox> {
-    const entity = this.toEntity(domainModel);
+    const entity = this.toModel(domainModel);
     const savedEntity = await this.repo.save(entity);
     return this.toDomain(savedEntity);
   }
 
-  private toDomain(entity: OrderOutboxEntity): OrderOutbox {
+  private toDomain(entity: OrderOutboxModel): OrderOutbox {
     return new OrderOutbox(
       entity.id,
       entity.type,
@@ -48,8 +48,8 @@ export class OrderOutboxRepository implements OrderOutboxRepositoryPort {
     );
   }
 
-  private toEntity(domain: OrderOutbox): OrderOutboxEntity {
-    const entity = new OrderOutboxEntity();
+  private toModel(domain: OrderOutbox): OrderOutboxModel {
+    const entity = new OrderOutboxModel();
     entity.id = domain.id;
     entity.type = domain.type;
     entity.eventType = domain.eventType;

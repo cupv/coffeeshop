@@ -7,29 +7,27 @@ import {
   Index,
 } from 'typeorm';
 
-@Entity('order_line_items')
-export class OrderLineItemEntity {
+@Entity('baristas')
+export class BaristaModel {
   @PrimaryColumn({ type: 'varchar', length: 36 })
   id!: string;
+
+  @Column({ type: 'varchar', length: 36 })
+  name!: string;
 
   @Column({ type: 'int' })
   type!: number;
 
-  @Column({ type: 'varchar', length: 255 })
-  name!: string;
-
-  @Column({ type: 'int' })
-  price!: number;
-
-  @Column({ type: 'int', default: 0 })
-  status!: number;
-
-  @Column({ type: 'boolean', default: false })
-  isBaristaOrder!: boolean;
-
   @Column({ type: 'varchar', length: 36 })
   @Index('order_id')
   orderId!: string;
+
+  @Column({
+    type: 'timestamp',
+    precision: 6,
+    nullable: true,
+  })
+  completedAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',

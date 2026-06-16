@@ -5,12 +5,12 @@ import {
   Order,
   OrderRepositoryPort,
   UpdateOrderCommand,
-} from '../../01.domain';
-import { OrderEntity } from './order.entity';
+} from '../../../01.domain';
+import { OrderModel } from '../model/order.model';
 import { DataSource } from 'typeorm';
-import { OrderLineItemEntity } from './order-line-item.entity';
+import { OrderLineItemModel } from '../model/order-line-item.model';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { OrderOutboxEntity } from './order-outbox.entity';
+import { OrderOutboxModel } from '../model/order-outbox.model';
 
 export class OrderRepository implements OrderRepositoryPort {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
@@ -19,7 +19,7 @@ export class OrderRepository implements OrderRepositoryPort {
     const { id, source, status, memberId, lines, outbox } = command;
 
     // 1. Map to Order Entity
-    const orderEntity = new OrderEntity();
+    const orderEntity = new OrderModel();
     orderEntity.id = id;
     orderEntity.source = source;
     orderEntity.status = status;
@@ -29,7 +29,7 @@ export class OrderRepository implements OrderRepositoryPort {
     const orderLineItemEntities = lines.map(
       (line: CreateOrderLineItemCommand) => {
         const { id, name, orderId, price, status, type } = line;
-        const entity = new OrderLineItemEntity();
+        const entity = new OrderLineItemModel();
         entity.id = id;
         entity.name = name;
         entity.orderId = orderId;
@@ -41,7 +41,7 @@ export class OrderRepository implements OrderRepositoryPort {
     );
 
     // 3. Prepare Outbox Event Entity
-    const outboxEntity = new OrderOutboxEntity();
+    const outboxEntity = new OrderOutboxModel();
     outboxEntity.id = outbox.id;
     outboxEntity.type = outbox.type;
     outboxEntity.orderId = outbox.orderId;
@@ -53,14 +53,14 @@ export class OrderRepository implements OrderRepositoryPort {
     // 4. Atomic Local Transaction Execution
     try {
       await this.dataSource.transaction(async (transactionalEntityManager) => {
-        await transactionalEntityManager.save(OrderEntity, orderEntity);
+        await transactionalEntityManager.save(OrderModel, orderEntity);
 
         await transactionalEntityManager.save(
-          OrderLineItemEntity,
+          OrderLineItemModel,
           orderLineItemEntities,
         );
 
-        await transactionalEntityManager.save(OrderOutboxEntity, outboxEntity);
+        await transactionalEntityManager.save(OrderOutboxModel, outboxEntity);
       });
       return id;
     } catch (error) {

@@ -1,22 +1,23 @@
 import { Module } from '@nestjs/common';
-import { entities, tasks } from './99.infrastructure';
+import { repositories } from './99.infrastructure';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ScheduleModule } from '@nestjs/schedule';
+import { BaristaModel } from './99.infrastructure/persistence/model';
+import { usecases } from './01.domain';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { BaristaConsumerController } from './02.adapter/consumer/barista.consumer';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
       password: 'root_password_here',
-      database: 'counter_db',
-      entities: [...entities],
+      database: 'barista_db',
+      entities: [BaristaModel],
     }),
-    TypeOrmModule.forFeature([...entities]),
+    TypeOrmModule.forFeature([BaristaModel]),
     ClientsModule.register([
       {
         name: 'RABBITMQ_CLIENT',
@@ -26,17 +27,19 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672',
           ],
           queue: 'order_outbox_queue',
-          routingKey: 'order.exchange',
-          exchange: 'order.exchange',
-          exchangeType: 'topic',
+          wildcards: true,
           queueOptions: {
             durable: true,
           },
+      
+          exchange: 'order.exchange',
+          exchangeType: 'topic',
           persistent: true,
         },
       },
     ]),
   ],
-  providers: [...tasks],
+  controllers: [BaristaConsumerController],
+  providers: [...usecases, ...repositories],
 })
-export class WorkerModule {}
+export class AppModule {}

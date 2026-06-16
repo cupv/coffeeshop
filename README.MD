@@ -36,3 +36,12 @@ src/
 ├── 03.infrastructure/  # External Frameworks (TypeORM Entities, Repositories, DB Migrations)
 └── 04.presentation/    # Entry Points (NestJS Controllers, Grpc/RabbitMQ Transport Adapters)
 ```
+
+or
+
+```text
+src/
+├── 01.domain/          # Core Enterprise Logic (Entities, Value Objects, Repository Interfaces)
+├── 02.adapter/         # Entry Points (NestJS Controllers, Grpc/RabbitMQ Transport Adapters)
+├── 03.infrastructure/  # External Frameworks (TypeORM Entities, Repositories, DB Migrations)
+```

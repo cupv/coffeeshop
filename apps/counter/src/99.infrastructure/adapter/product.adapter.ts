@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import type { Nullable } from 'src/00.common';
-import type { Product, ProductService } from '../../01.domain';
+import type { Product, ProductUseCase } from '../../01.domain';
 
 @Injectable()
-export class ProductAdapter implements ProductService {
+export class ProductAdapter implements ProductUseCase {
   private readonly axiosClient: AxiosInstance;
   private readonly logger = new Logger(ProductAdapter.name);
 

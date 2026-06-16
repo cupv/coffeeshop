@@ -1,6 +1,7 @@
-import { OrderLineItemEntity } from './order-line-item.entity';
-import { OrderOutboxEntity } from './order-outbox.entity';
-import { OrderEntity } from './order.entity';
+import { OrderLineItemModel } from './model/order-line-item.model';
+import { OrderOutboxModel } from './model/order-outbox.model';
+import { OrderModel } from './model/order.model';
 
-export * from './order.repository.di';
-export const entities = [OrderEntity, OrderLineItemEntity, OrderOutboxEntity];
+export * from './repository/order.repository.di';
+
+export const entities = [OrderModel, OrderLineItemModel, OrderOutboxModel];

@@ -3,7 +3,7 @@ import { Cron } from '@nestjs/schedule';
 import { DataSource } from 'typeorm';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { OrderOutboxEntity } from '../persistence/order-outbox.entity';
+import { OrderOutboxModel } from '../persistence/model/order-outbox.model';
 
 @Injectable()
 export class OrderOutboxTask {
@@ -29,7 +29,7 @@ export class OrderOutboxTask {
     await queryRunner.connect();
 
     try {
-      const outboxRepo = queryRunner.manager.getRepository(OrderOutboxEntity);
+      const outboxRepo = queryRunner.manager.getRepository(OrderOutboxModel);
 
       const pendingEvents = await outboxRepo.find({
         where: {

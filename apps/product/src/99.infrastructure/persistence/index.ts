@@ -1,1 +1,1 @@
-export * from './product.repository.di';
+export * from './repository/product.repository.di';

@@ -1,13 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product, ProductRepositoryPort } from '../../01.domain';
-import { ProductEntity } from './product.entity';
+import { Product, ProductRepositoryPort } from '../../../01.domain';
+import { ProductModel } from '../model/product.model';
 import { Repository } from 'typeorm';
-import { Nullable } from '../../00.common';
+import { Nullable } from '../../../00.common';
 
 export class ProductRepository implements ProductRepositoryPort {
   constructor(
-    @InjectRepository(ProductEntity)
-    private readonly repository: Repository<ProductEntity>,
+    @InjectRepository(ProductModel)
+    private readonly repository: Repository<ProductModel>,
   ) {}
 
   async  findAll(): Promise<Product[]> {
@@ -27,7 +27,7 @@ export class ProductRepository implements ProductRepositoryPort {
     return this.toDomain(entity);
   }
 
-  private toDomain(entity: ProductEntity): Product {
+  private toDomain(entity: ProductModel): Product {
     return {
       id: entity.id,
       name: entity.name,

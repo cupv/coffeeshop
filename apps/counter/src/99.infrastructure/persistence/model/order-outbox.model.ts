@@ -9,7 +9,7 @@ import {
 @Entity('orders_outbox')
 @Index('idx_status_created', ['status', 'createdAt'])
 @Index('idx_order', ['type', 'orderId'])
-export class OrderOutboxEntity {
+export class OrderOutboxModel {
   @PrimaryColumn({ type: 'varchar', length: 36 })
   id!: string;
 

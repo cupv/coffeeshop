@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity('orders')
-export class OrderEntity {
+export class OrderModel {
   @PrimaryColumn({ type: 'varchar', length: 36 })
   id!: string;
 
