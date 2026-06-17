@@ -4,7 +4,6 @@ import {
   BARISTA_USECASE_TOKEN,
   type BaristaUseCasePort,
 } from '../../01.domain';
-import { first } from 'rxjs';
 
 @Controller()
 export class BaristaConsumerController {
