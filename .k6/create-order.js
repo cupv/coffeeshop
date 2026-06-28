@@ -8,7 +8,7 @@ export const options = {
     scenarios: {
         import_data: {
             executor: 'constant-vus',
-            vus: 200,            
+            vus: 300,            
             duration: '30m',      
         },
     },
